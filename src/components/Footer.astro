@@ -1,0 +1,64 @@
+---
+import { site } from '@/data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <p class="site-footer__logo">Дарья Шугарья</p>
+      <p>Студия эпиляции на Таганке, рядом с метро {site.metro.join(' и ')}.</p>
+    </div>
+    <div>
+      <h3>Контакты</h3>
+      <p>{site.address}</p>
+      <p><a href={site.phoneHref}>{site.phone}</a></p>
+      <p>{site.workingHours}</p>
+    </div>
+    <div>
+      <h3>Информация</h3>
+      <ul class="site-footer__links">
+        <li><a href="/privacy/">Политика конфиденциальности</a></li>
+        <li><a href="/personal-data/">Согласие на обработку персональных данных</a></li>
+        <li><a href="/cookies/">Использование cookie</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© {year} {site.legalNamePlaceholder}. Все права защищены.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-line);
+    padding: 48px 0 24px;
+    margin-bottom: 64px; /* место под мобильную CTA-панель */
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 32px;
+  }
+  .site-footer__logo {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+  .site-footer h3 { font-size: 1rem; margin-bottom: 10px; }
+  .site-footer__links { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .site-footer__links a { color: var(--color-text-soft); text-decoration: none; font-size: 0.92rem; }
+  .site-footer__bottom {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+  }
+  @media (max-width: 860px) {
+    .site-footer__grid { grid-template-columns: 1fr; }
+    .site-footer { margin-bottom: 74px; }
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Faq from '@/components/Faq.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import { blogPosts } from '@/data/blog';
+import { site, withUtm } from '@/data/site';
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  author: { '@type': 'Organization', name: post.author },
+  datePublished: post.publishedAt,
+  dateModified: post.updatedAt,
+};
+
+const bookingUrl = withUtm(site.yclientsBaseUrl, {
+  source: 'website',
+  medium: 'organic_content',
+  campaign: post.slug,
+});
+---
+<Layout title={`${post.title} — «Дарья Шугарья»`} description={post.metaDescription} path={`/blog/${post.slug}/`}>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Статьи', href: '/blog/' }, { label: post.title, href: `/blog/${post.slug}/` }]} /></div>
+
+  <article class="section">
+    <div class="container" style="max-width: 760px;">
+      <h1>{post.title}</h1>
+      <p style="font-size:0.85rem; color:var(--color-text-soft);">
+        Автор: {post.author} · Опубликовано {post.publishedAt} · Обновлено {post.updatedAt}
+      </p>
+      <p><strong>{post.shortAnswer}</strong></p>
+
+      {post.body.map((paragraph) => <p>{paragraph}</p>)}
+
+      <p><em>Информация носит общий характер — индивидуальные особенности обсуждаются на консультации с мастером.</em></p>
+
+      {post.relatedServiceSlug && (
+        <p><a href={`/${post.relatedServiceSlug}/`}>Подробнее об услуге →</a></p>
+      )}
+
+      <a href={bookingUrl} class="btn btn--primary" target="_blank" rel="noopener" data-goal="click_booking_service">
+        Записаться онлайн
+      </a>
+    </div>
+  </article>
+
+  {post.faq.length > 0 && <Faq items={post.faq} title="Вопросы по теме" />}
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

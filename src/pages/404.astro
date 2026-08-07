@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import BookingButton from '@/components/BookingButton.astro';
+---
+<Layout title="Страница не найдена — «Дарья Шугарья»" description="Страница не найдена" path="/404/" noindex={true}>
+  <section class="section" style="text-align:center;">
+    <div class="container">
+      <h1>Страница не найдена</h1>
+      <p>Возможно, ссылка устарела. Вот что может пригодиться:</p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="/" class="btn btn--ghost">На главную</a>
+        <a href="/prices/" class="btn btn--ghost">Цены</a>
+        <BookingButton />
+      </div>
+    </div>
+  </section>
+</Layout>

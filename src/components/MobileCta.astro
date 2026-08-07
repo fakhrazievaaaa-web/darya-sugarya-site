@@ -1,0 +1,47 @@
+---
+import { site, analyticsGoals } from '@/data/site';
+---
+<div class="mobile-cta">
+  <a href={site.phoneHref} class="mobile-cta__call" data-goal={analyticsGoals.phone} aria-label="Позвонить">
+    Позвонить
+  </a>
+  <a
+    href={site.yclientsBaseUrl}
+    class="mobile-cta__book"
+    target="_blank" rel="noopener"
+    data-goal={analyticsGoals.bookingMobile}
+  >Записаться</a>
+</div>
+
+<style>
+  .mobile-cta {
+    display: none;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 60;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-line);
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    gap: 10px;
+  }
+  .mobile-cta__call, .mobile-cta__book {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .mobile-cta__call {
+    border: 1px solid var(--color-berry);
+    color: var(--color-berry);
+  }
+  .mobile-cta__book {
+    background: var(--color-berry);
+    color: #fff;
+  }
+  @media (max-width: 860px) {
+    .mobile-cta { display: flex; }
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+import { site, analyticsGoals, withUtm } from '@/data/site';
+
+interface Props {
+  label?: string;
+  goal?: string;
+  variant?: 'primary' | 'ghost';
+  utm?: { source: string; medium: string; campaign: string };
+}
+const {
+  label = 'Записаться онлайн',
+  goal = analyticsGoals.bookingService,
+  variant = 'primary',
+  utm,
+} = Astro.props;
+
+const href = withUtm(site.yclientsBaseUrl, utm);
+---
+<a
+  href={href}
+  target="_blank"
+  rel="noopener"
+  class={`btn btn--${variant}`}
+  data-goal={goal}
+  data-outbound={analyticsGoals.outboundYclients}
+>{label}</a>

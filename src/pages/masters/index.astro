@@ -1,0 +1,45 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import { masters } from '@/data/masters';
+import { reviews } from '@/data/reviews';
+---
+<Layout
+  title="Мастера студии — «Дарья Шугарья»"
+  description="Мастера студии эпиляции на Таганке: специализация, образование и подход к клиенту."
+  path="/masters/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Мастера', href: '/masters/' }]} /></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>Мастера</h1>
+      <div class="grid grid--2">
+        {masters.map((m) => {
+          const masterReviews = reviews.filter((r) => r.method); // фильтрация по мастеру добавляется при расширении данных
+          const jsonLd = {
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: m.name,
+            jobTitle: m.role,
+          };
+          return (
+            <div class="surface" style="padding:24px; border:1px solid var(--color-line);">
+              <h2>{m.name}</h2>
+              <p>{m.role}</p>
+              <p>Образование: {m.education}</p>
+              <p>Направления: {m.focus.join(', ')}</p>
+              <p>{m.about}</p>
+              <BookingButton label={`Записаться к ${m.name}`} variant="ghost" />
+              <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+            </div>
+          );
+        })}
+      </div>
+      <p style="margin-top:20px; color: var(--color-text-soft);">
+        Архитектура страницы поддерживает добавление новых мастеров — данные добавляются в src/data/masters.ts
+      </p>
+    </div>
+  </section>
+</Layout>

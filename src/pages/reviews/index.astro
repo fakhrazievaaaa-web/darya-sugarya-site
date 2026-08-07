@@ -1,0 +1,45 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import { reviews } from '@/data/reviews';
+import { site } from '@/data/site';
+
+const methodLabels: Record<string, string> = { laser: 'Лазер', sugaring: 'Шугаринг', wax: 'Воск' };
+---
+<Layout
+  title="Отзывы клиентов — «Дарья Шугарья»"
+  description="Реальные отзывы клиентов студии эпиляции на Таганке по лазерной эпиляции, шугарингу и восковой депиляции."
+  path="/reviews/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Отзывы', href: '/reviews/' }]} /></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>Отзывы</h1>
+
+      {reviews.length === 0 ? (
+        <p>
+          Раздел пока пуст — сюда будут добавлены реальные отзывы клиентов.
+          Полный список также можно посмотреть на <a href={site.yandexMapsUrl}>карточке Яндекс.Карт</a>.
+        </p>
+      ) : (
+        <div class="grid grid--2">
+          {reviews.map((r) => (
+            <div class="surface" style="padding:20px; border:1px solid var(--color-line);">
+              <p style="font-weight:600; margin-bottom:4px;">{r.author}</p>
+              <p style="font-size:0.85rem; color:var(--color-text-soft);">
+                {methodLabels[r.method]} · {r.source} · {r.date}
+              </p>
+              <p>{r.text}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--alt" style="text-align:center;">
+    <div class="container"><BookingButton /></div>
+  </section>
+</Layout>

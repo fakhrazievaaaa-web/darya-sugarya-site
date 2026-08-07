@@ -1,0 +1,63 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { masters } from '@/data/masters';
+
+const founder = masters.find((m) => m.isFounder);
+---
+<Layout
+  title="О студии — «Дарья Шугарья»"
+  description="Небольшая специализированная студия эпиляции на Таганке: подход к клиенту, принципы работы, команда."
+  path="/about/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'О студии', href: '/about/' }]} /></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>О студии «Дарья Шугарья»</h1>
+      <p>[УКАЗАТЬ: история создания студии — почему выбрана специализация именно на эпиляции]</p>
+      <p>
+        Формат студии — небольшая, специализированная на эпиляции, без ощущения конвейера.
+        Мы работаем с тремя методами удаления волос и помогаем подобрать подходящий вариант
+        под задачу, кожу и образ жизни клиента.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Подход к клиенту</h2>
+      <ul>
+        <li>Не навязываем один метод — подбираем вариант вместе с вами</li>
+        <li>Прозрачные цены без скрытых доплат</li>
+        <li>Приватная и спокойная обстановка</li>
+        <li>Контроль качества со стороны основательницы</li>
+      </ul>
+    </div>
+  </section>
+
+  {founder && (
+    <section class="section">
+      <div class="container">
+        <h2>Основательница</h2>
+        <h3>{founder.name}</h3>
+        <p>{founder.about}</p>
+        <p>Квалификация: {founder.education}.</p>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Чистота и обработка</h2>
+      <p>[УКАЗАТЬ: принципы обработки инструментов и подготовки кабинета между клиентами]</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Фотографии студии</h2>
+      <p class="placeholder">[УКАЗАТЬ фотографии: кабинет, зона ожидания, вход, детали интерьера]</p>
+    </div>
+  </section>
+</Layout>

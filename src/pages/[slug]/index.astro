@@ -1,0 +1,111 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import Faq from '@/components/Faq.astro';
+import { methods } from '@/data/methods';
+import { priceGroups } from '@/data/prices';
+import { site } from '@/data/site';
+
+export function getStaticPaths() {
+  return methods.map((m) => ({ params: { slug: m.slug }, props: { method: m } }));
+}
+
+const { method } = Astro.props;
+const prices = priceGroups.find((g) => g.method === method.id);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: method.name,
+  provider: { '@type': 'BeautySalon', name: site.name },
+  areaServed: 'Таганка, Москва',
+};
+---
+<Layout title={method.metaTitle} description={method.metaDescription} path={`/${method.slug}/`}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: method.name, href: `/${method.slug}/` }]} />
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <h1>{method.h1}</h1>
+      <p>{method.intro}</p>
+      {method.faceNote && <p><strong>{method.faceNote}</strong></p>}
+      <BookingButton />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Кому подходит</h2>
+      <p>{method.whoFor}</p>
+      <h2>Как это работает</h2>
+      <p>{method.howItWorks}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Доступные зоны</h2>
+      <ul>{method.zones.map((z) => <li>{z}</li>)}</ul>
+
+      <h2>Цены</h2>
+      {prices && (
+        <table class="price-table">
+          <tbody>
+            {prices.items.map((item) => (
+              <tr>
+                <td>{item.zone}{item.duration ? ` (~${item.duration} мин)` : ''}</td>
+                <td>{item.price ? `${item.price} ₽` : <span class="placeholder">[УКАЗАТЬ ЦЕНУ]</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <p style="margin-top:16px;"><a href="/prices/">Все цены и комплексы →</a></p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Как подготовиться</h2>
+      <ul>{method.preparation.map((p) => <li>{p}</li>)}</ul>
+      <h2>Уход после процедуры</h2>
+      <ul>{method.aftercare.map((p) => <li>{p}</li>)}</ul>
+      <h2>Ограничения</h2>
+      <ul>{method.limitations.map((p) => <li>{p}</li>)}</ul>
+      <p><em>Результат и количество процедур индивидуальны.</em></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Почему стоит обратиться в «Дарья Шугарья»</h2>
+      <p>
+        Небольшая студия без ощущения конвейера: мастер уделяет время подбору метода и
+        объясняет каждый этап, а Дарья лично контролирует качество работы.
+      </p>
+      <h2>Отзывы о процедуре</h2>
+      <p>Раздел заполняется реальными отзывами клиентов — см. страницу <a href="/reviews/">отзывов</a>.</p>
+    </div>
+  </section>
+
+  <Faq items={method.faq} title="Вопросы про эту процедуру" />
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Как добраться</h2>
+      <p>{site.address} — рядом с метро {site.metro.join(' и ')}.</p>
+      <a href="/contacts/" class="btn btn--ghost btn--sm">Маршрут и контакты</a>
+    </div>
+  </section>
+
+  <section class="section" style="text-align:center;">
+    <div class="container">
+      <BookingButton label="Записаться на процедуру" />
+    </div>
+  </section>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

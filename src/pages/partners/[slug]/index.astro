@@ -1,0 +1,43 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { partners } from '@/data/partners';
+import { site, withUtm } from '@/data/site';
+
+export function getStaticPaths() {
+  return partners.map((p) => ({ params: { slug: p.slug }, props: { partner: p } }));
+}
+
+const { partner } = Astro.props;
+
+const bookingUrl = withUtm(site.yclientsBaseUrl, {
+  source: 'partner',
+  medium: 'referral',
+  campaign: partner.utmCampaign,
+});
+---
+<Layout
+  title={`Специальное предложение от ${partner.name} — «Дарья Шугарья»`}
+  description={partner.offerDescription}
+  path={`/partners/${partner.slug}/`}
+  noindex={true}
+>
+  <section class="section">
+    <div class="container" style="max-width: 640px; text-align:center;">
+      <p class="eyebrow">Специальное предложение для клиентов {partner.name}</p>
+      <h1>{partner.offerTitle}</h1>
+      <p>{partner.offerDescription}</p>
+      <ul style="text-align:left; display:inline-block;">
+        {partner.applicableServices.map((s) => <li>{s}</li>)}
+      </ul>
+      <p>{partner.combinesWithOtherOffers ? 'Суммируется с другими предложениями.' : 'Не суммируется с другими предложениями.'}</p>
+      {partner.promoCode && <p>Промокод: <strong>{partner.promoCode}</strong></p>}
+      {partner.validUntil && <p>Действует до {partner.validUntil}</p>}
+
+      <a href={bookingUrl} class="btn btn--primary" target="_blank" rel="noopener" data-goal="click_partner_offer">
+        Записаться по предложению
+      </a>
+
+      <p style="margin-top:20px;"><a href={site.phoneHref}>{site.phone}</a></p>
+    </div>
+  </section>
+</Layout>

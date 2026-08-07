@@ -1,0 +1,65 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import { priceGroups, complexes, firstVisitOffer } from '@/data/prices';
+---
+<Layout
+  title="Услуги и цены — студия «Дарья Шугарья»"
+  description="Цены на лазерную эпиляцию, шугаринг и восковую депиляцию в студии на Таганке. Комплексы и предложение для первого визита."
+  path="/prices/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Услуги и цены', href: '/prices/' }]} /></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>Услуги и цены</h1>
+      <p>Все цены актуальны и указаны за одну процедуру. Комплексы — ниже.</p>
+
+      {priceGroups.map((group) => (
+        <div style="margin-bottom: 40px;">
+          <h2>{group.title}</h2>
+          <table class="price-table">
+            <tbody>
+              {group.items.map((item) => (
+                <tr>
+                  <td>{item.zone}{item.duration ? ` (~${item.duration} мин)` : ''}</td>
+                  <td>{item.price ? `${item.price} ₽` : <span class="placeholder">[УКАЗАТЬ ЦЕНУ]</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Комплексы</h2>
+      <div class="grid grid--2">
+        {complexes.map((c) => (
+          <div class="surface" style="padding:24px; border:1px solid var(--color-line);">
+            <h3>{c.title}</h3>
+            <p>{c.description}</p>
+            <p class="placeholder">{c.price ? `${c.price} ₽` : '[УКАЗАТЬ ЦЕНУ]'}</p>
+            {c.comparePriceHint && <p><em>{c.comparePriceHint}</em></p>}
+            <BookingButton label="Записаться" variant="ghost" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Первое посещение</h2>
+      <p>{firstVisitOffer.title}</p>
+      <p>{firstVisitOffer.description}</p>
+    </div>
+  </section>
+
+  <section class="section section--alt" style="text-align:center;">
+    <div class="container"><BookingButton label="Выбрать услугу и время" /></div>
+  </section>
+</Layout>

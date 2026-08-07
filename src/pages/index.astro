@@ -1,0 +1,157 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import Faq from '@/components/Faq.astro';
+import { site } from '@/data/site';
+import { methods, generalFaq } from '@/data/methods';
+import { complexes } from '@/data/prices';
+import { masters } from '@/data/masters';
+import { reviews } from '@/data/reviews';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BeautySalon',
+  name: site.name,
+  url: `https://${site.domain}`,
+  telephone: site.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address,
+    addressLocality: site.city,
+  },
+  areaServed: 'Таганка, Москва',
+};
+---
+<Layout
+  title="Лазерная эпиляция, шугаринг и воск на Таганке — студия «Дарья Шугарья»"
+  description="Студия эпиляции рядом с метро Таганская и Марксистская. Лазер, шугаринг, воск — поможем подобрать подходящий метод. Прозрачные цены, онлайн-запись."
+  path="/"
+>
+  <section class="section hero">
+    <div class="container hero__grid">
+      <div>
+        <span class="eyebrow">Студия эпиляции на Таганке</span>
+        <h1>Лазерная эпиляция, шугаринг и воск на Таганке</h1>
+        <p>
+          Подберём подходящий способ удаления волос и спокойно проведём процедуру
+          в приватной студии рядом с метро {site.metro.join(' и ')}.
+        </p>
+        <div class="hero__actions">
+          <BookingButton />
+          <a href="/prices/" class="btn btn--ghost">Посмотреть услуги и цены</a>
+        </div>
+      </div>
+      <div class="hero__image placeholder-block" aria-hidden="true">
+        [УКАЗАТЬ фотографию студии / кабинета]
+      </div>
+    </div>
+  </section>
+
+  <div class="sugar-divider" aria-hidden="true">
+    <svg viewBox="0 0 72 20"><path d="M0 10 Q 18 0 36 10 T 72 10" stroke="#7A2436" stroke-width="2" fill="none"/></svg>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Три направления в одной студии</span>
+      <h2>Выберите то, что подходит именно вам</h2>
+      <div class="grid grid--3">
+        {methods.map((m) => (
+          <div class="method-card">
+            <h3>{m.name}</h3>
+            <p>{m.intro}</p>
+            <a href={`/${m.slug}/`} class="btn btn--ghost btn--sm">Подробнее</a>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top: 24px;">
+        Не уверены, что выбрать? На странице
+        <a href="/kak-vybrat-metod/">«Какой метод выбрать»</a> — честное сравнение всех трёх.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Комплексы</span>
+      <h2>Популярные сочетания зон</h2>
+      <div class="grid grid--2">
+        {complexes.map((c) => (
+          <div class="surface" style="padding: 24px; border: 1px solid var(--color-line);">
+            <h3>{c.title}</h3>
+            <p>{c.description}</p>
+            <p class="placeholder">{c.price ? `${c.price} ₽` : '[УКАЗАТЬ ЦЕНУ]'}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Почему студия</span>
+      <h2>Что важно для нас в работе</h2>
+      <div class="grid grid--3">
+        <div><h3>Индивидуальный подбор</h3><p>Помогаем выбрать метод под ваши задачи, кожу и образ жизни — без навязывания.</p></div>
+        <div><h3>Контроль качества</h3><p>Дарья лично контролирует качество работы в студии.</p></div>
+        <div><h3>Приватность</h3><p>Небольшая студия без ощущения конвейера — спокойная и уважительная атмосфера.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Основательница</span>
+      <h2>О Дарье</h2>
+      {masters.filter(m => m.isFounder).map((m) => (
+        <p>{m.about} Квалификация: {m.education}.</p>
+      ))}
+      <a href="/about/" class="btn btn--ghost btn--sm">О студии подробнее</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Отзывы</span>
+      <h2>Что говорят клиенты</h2>
+      {reviews.length === 0
+        ? <p>Отзывы скоро появятся на этой странице.</p>
+        : <p>См. страницу <a href="/reviews/">отзывов</a>.</p>}
+    </div>
+  </section>
+
+  <Faq items={generalFaq} />
+
+  <section class="section section--alt">
+    <div class="container" style="text-align:center;">
+      <h2>Готовы записаться?</h2>
+      <p>Выберите удобное время в онлайн-записи — это займёт пару минут.</p>
+      <BookingButton />
+    </div>
+  </section>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<style>
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+  .placeholder-block {
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-dust);
+    border-radius: var(--radius-lg);
+    min-height: 320px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-text-soft);
+    text-align: center;
+    padding: 20px;
+  }
+  @media (max-width: 860px) {
+    .hero__grid { grid-template-columns: 1fr; }
+  }
+</style>

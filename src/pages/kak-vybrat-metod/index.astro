@@ -1,0 +1,66 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import { methods } from '@/data/methods';
+
+const rows = [
+  { label: 'Принцип метода', values: [
+    'Воздействие на волосяной фолликул лазером',
+    'Удаление пастой на сахарной основе против роста, снятие по росту',
+    'Удаление воском по направлению роста',
+  ]},
+  { label: 'Рекомендуемая длина волос', values: [
+    'Отрастание для бритья, не выщипывания',
+    'От минимальной длины — см. страницу услуги',
+    'От минимальной длины — см. страницу услуги',
+  ]},
+  { label: 'Периодичность', values: ['Курс процедур с интервалом', 'Индивидуально, по мере роста', 'Индивидуально, по мере роста'] },
+  { label: 'Ощущения', values: ['Индивидуальны', 'Индивидуальны, техника считается бережной', 'Индивидуальны'] },
+  { label: 'Кому чаще подходит', values: [
+    'Тем, кто готов пройти курс ради постепенного результата',
+    'Тем, кто выбирает регулярный бережный уход',
+    'Тем, кому важна скорость процедуры',
+  ]},
+];
+---
+<Layout
+  title="Какой метод выбрать: лазер, шугаринг или воск — «Дарья Шугарья»"
+  description="Честное сравнение лазерной эпиляции, шугаринга и восковой депиляции — поможем выбрать метод под ваши задачи."
+  path="/kak-vybrat-metod/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Как выбрать метод', href: '/kak-vybrat-metod/' }]} /></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>Какой метод выбрать</h1>
+      <p>Ни один из методов не является объективно «лучшим» — каждый решает свою задачу. Ниже — сравнение по ключевым параметрам.</p>
+
+      <div style="overflow-x:auto;">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              {methods.map((m) => <th>{m.name}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr>
+                <td>{row.label}</td>
+                {row.values.map((v) => <td>{v}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" style="text-align:center;">
+    <div class="container">
+      <p>Не уверены, что выбрать? Напишите администратору или запишитесь на подходящую процедуру — перед началом мастер уточнит ваши ожидания и особенности кожи.</p>
+      <BookingButton label="Подобрать метод" />
+    </div>
+  </section>
+</Layout>

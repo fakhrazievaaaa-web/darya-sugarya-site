@@ -1,0 +1,54 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import BookingButton from '@/components/BookingButton.astro';
+import { site, analyticsGoals } from '@/data/site';
+---
+<Layout
+  title="Контакты и как добраться — «Дарья Шугарья»"
+  description="Адрес студии эпиляции на Таганке рядом с метро Таганская и Марксистская, режим работы, маршрут и контакты."
+  path="/contacts/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Контакты', href: '/contacts/' }]} /></div>
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div>
+        <h1>Контакты и как добраться</h1>
+        <p><strong>Адрес:</strong> {site.address}</p>
+        <p><strong>Метро:</strong> {site.metro.join(', ')}, {site.walkTimeFromMetro} пешком</p>
+        <p><strong>Режим работы:</strong> {site.workingHours}</p>
+        <p><strong>Телефон:</strong> <a href={site.phoneHref} data-goal={analyticsGoals.phone}>{site.phone}</a></p>
+        <p><strong>Мессенджеры:</strong> [УКАЗАТЬ ссылки WhatsApp / Telegram]</p>
+        <p>{site.addressComment}</p>
+        <p><strong>Парковка:</strong> [УКАЗАТЬ информацию о парковке]</p>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+          <a href={site.yandexMapsUrl} class="btn btn--ghost" data-goal={analyticsGoals.route}>Построить маршрут</a>
+          <BookingButton />
+        </div>
+      </div>
+      <div class="placeholder-block" aria-hidden="true">
+        [УКАЗАТЬ карту / фотографию входа]
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Пошаговый маршрут от метро</h2>
+      <p>[УКАЗАТЬ пошаговое описание маршрута и ориентиры]</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .placeholder-block {
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-dust);
+    border-radius: var(--radius-lg);
+    min-height: 260px;
+    display: flex; align-items:center; justify-content:center;
+    color: var(--color-text-soft); text-align:center; padding:20px;
+  }
+</style>

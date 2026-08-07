@@ -1,0 +1,45 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { blogPosts } from '@/data/blog';
+
+// Список статей второго этапа — заголовки уже определены в ТЗ,
+// материалы будут добавляться в src/data/blog.ts по мере готовности.
+const plannedTitles = [
+  'Как избавиться от вросших волос в зоне бикини',
+  'Почему после бритья появляется раздражение',
+  'Как подготовиться к лазерной эпиляции',
+  'Сколько процедур лазерной эпиляции нужно',
+  'Можно ли делать лазерную эпиляцию летом',
+  'Когда записываться на депиляцию перед отпуском',
+  'Как подготовиться к шугарингу глубокого бикини',
+  'Почему волосы после лазера не исчезают после первой процедуры',
+  'Шугаринг или воск: чем отличаются методы',
+];
+---
+<Layout
+  title="Статьи о депиляции и эпиляции — «Дарья Шугарья»"
+  description="Полезные статьи о лазерной эпиляции, шугаринге и восковой депиляции от студии на Таганке."
+  path="/blog/"
+>
+  <div class="container"><Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Статьи', href: '/blog/' }]} /></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>Статьи</h1>
+      <div class="grid grid--2">
+        {blogPosts.map((post) => (
+          <a href={`/blog/${post.slug}/`} class="surface" style="padding:20px; border:1px solid var(--color-line); text-decoration:none; color:inherit; display:block;">
+            <h2 style="font-size:1.15rem;">{post.title}</h2>
+            <p>{post.shortAnswer}</p>
+          </a>
+        ))}
+      </div>
+
+      <h2 style="margin-top:40px;">Скоро на сайте</h2>
+      <ul style="color: var(--color-text-soft);">
+        {plannedTitles.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+</Layout>
