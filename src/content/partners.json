@@ -1,0 +1,16 @@
+{
+  "partners": [
+    {
+      "slug": "example-partner",
+      "name": "[УКАЗАТЬ название партнёра]",
+      "offerTitle": "[УКАЗАТЬ предложение для клиентов партнёра]",
+      "offerDescription": "[УКАЗАТЬ условия и срок действия]",
+      "applicableServices": [
+        "[УКАЗАТЬ услуги]"
+      ],
+      "combinesWithOtherOffers": false,
+      "promoCode": "",
+      "utmCampaign": "example-partner"
+    }
+  ]
+}

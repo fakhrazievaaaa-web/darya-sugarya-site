@@ -1,0 +1,193 @@
+backend:
+  name: github
+  repo: fakhrazievaaaa-web/darya-sugarya-site
+  branch: main
+  base_url: https://daryasugarya.ru
+  auth_endpoint: api/auth
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "ru"
+
+collections:
+  - name: "settings"
+    label: "Контакты и настройки"
+    files:
+      - name: "settings"
+        label: "Контакты и настройки студии"
+        file: "src/content/settings.json"
+        fields:
+          - { label: "Телефон (для отображения)", name: "phone", widget: "string" }
+          - { label: "Телефон (ссылка tel:, формат +7XXXXXXXXXX)", name: "phoneHref", widget: "string" }
+          - { label: "Адрес", name: "address", widget: "string" }
+          - { label: "Комментарий к адресу (этаж, домофон)", name: "addressComment", widget: "string", required: false }
+          - { label: "Время пешком от метро", name: "walkTimeFromMetro", widget: "string" }
+          - { label: "Режим работы", name: "workingHours", widget: "string" }
+          - { label: "Ссылка WhatsApp", name: "whatsapp", widget: "string", required: false }
+          - { label: "Ссылка Telegram", name: "telegram", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "VK", name: "vk", widget: "string", required: false }
+          - { label: "Ссылка на Яндекс.Карты", name: "yandexMapsUrl", widget: "string", required: false }
+          - { label: "ID Яндекс.Метрики", name: "yandexMetrikaId", widget: "string", required: false }
+          - { label: "Ссылка YCLIENTS (запись)", name: "yclientsBaseUrl", widget: "string" }
+          - { label: "Юридическое наименование (для футера)", name: "legalNamePlaceholder", widget: "string", required: false }
+
+  - name: "prices"
+    label: "Цены и комплексы"
+    files:
+      - name: "prices"
+        label: "Цены и комплексы"
+        file: "src/content/prices.json"
+        fields:
+          - label: "Группы цен по методам"
+            name: "priceGroups"
+            widget: "list"
+            fields:
+              - { label: "Метод", name: "method", widget: "select", options: ["laser", "sugaring", "wax"] }
+              - { label: "Название метода (отображается)", name: "title", widget: "string" }
+              - label: "Зоны и цены"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Зона", name: "zone", widget: "string" }
+                  - { label: "Цена, ₽ (оставьте пустым, если пока неизвестна)", name: "price", widget: "number", required: false, value_type: "int" }
+                  - { label: "Длительность, мин", name: "duration", widget: "number", required: false, value_type: "int" }
+          - label: "Комплексы"
+            name: "complexes"
+            widget: "list"
+            fields:
+              - { label: "Название комплекса", name: "title", widget: "string" }
+              - { label: "Состав / описание", name: "description", widget: "text" }
+              - { label: "Цена, ₽", name: "price", widget: "number", required: false, value_type: "int" }
+              - { label: "Пояснение выгоды", name: "comparePriceHint", widget: "string", required: false }
+          - label: "Предложение первого визита"
+            name: "firstVisitOffer"
+            widget: "object"
+            fields:
+              - { label: "Заголовок", name: "title", widget: "string" }
+              - { label: "Описание условий", name: "description", widget: "text" }
+
+  - name: "methods"
+    label: "Услуги (лазер / шугаринг / воск)"
+    files:
+      - name: "methods"
+        label: "Услуги и общие вопросы"
+        file: "src/content/methods.json"
+        fields:
+          - label: "Методы"
+            name: "methods"
+            widget: "list"
+            fields:
+              - { label: "ID (не менять)", name: "id", widget: "select", options: ["laser", "sugaring", "wax"] }
+              - { label: "URL страницы (не менять)", name: "slug", widget: "string" }
+              - { label: "Название", name: "name", widget: "string" }
+              - { label: "SEO Title", name: "metaTitle", widget: "string" }
+              - { label: "SEO Description", name: "metaDescription", widget: "text" }
+              - { label: "Заголовок H1", name: "h1", widget: "string" }
+              - { label: "Вступление", name: "intro", widget: "text" }
+              - { label: "Кому подходит", name: "whoFor", widget: "text" }
+              - { label: "Как это работает", name: "howItWorks", widget: "text" }
+              - { label: "Зоны (список)", name: "zones", widget: "list", field: { label: "Зона", name: "zone", widget: "string" } }
+              - { label: "Подготовка (список пунктов)", name: "preparation", widget: "list", field: { label: "Пункт", name: "item", widget: "string" } }
+              - { label: "Уход после (список пунктов)", name: "aftercare", widget: "list", field: { label: "Пункт", name: "item", widget: "string" } }
+              - { label: "Ограничения (список пунктов)", name: "limitations", widget: "list", field: { label: "Пункт", name: "item", widget: "string" } }
+              - { label: "Особая пометка (например про лицо)", name: "faceNote", widget: "string", required: false }
+              - label: "Вопросы по этой услуге"
+                name: "faq"
+                widget: "list"
+                fields:
+                  - { label: "Вопрос", name: "question", widget: "string" }
+                  - { label: "Ответ", name: "answer", widget: "text" }
+          - label: "Общие вопросы (на главной)"
+            name: "generalFaq"
+            widget: "list"
+            fields:
+              - { label: "Вопрос", name: "question", widget: "string" }
+              - { label: "Ответ", name: "answer", widget: "text" }
+
+  - name: "masters"
+    label: "Мастера"
+    files:
+      - name: "masters"
+        label: "Мастера студии"
+        file: "src/content/masters.json"
+        fields:
+          - label: "Мастера"
+            name: "masters"
+            widget: "list"
+            fields:
+              - { label: "URL-идентификатор (латиницей, без пробелов)", name: "slug", widget: "string" }
+              - { label: "Имя", name: "name", widget: "string" }
+              - { label: "Роль", name: "role", widget: "string" }
+              - { label: "Фото", name: "photo", widget: "image", required: false }
+              - { label: "Образование", name: "education", widget: "string" }
+              - { label: "Направления работы", name: "focus", widget: "list", field: { label: "Направление", name: "item", widget: "string" } }
+              - { label: "О мастере", name: "about", widget: "text" }
+              - { label: "Это основательница?", name: "isFounder", widget: "boolean", required: false, default: false }
+
+  - name: "reviews"
+    label: "Отзывы"
+    files:
+      - name: "reviews"
+        label: "Отзывы клиентов"
+        file: "src/content/reviews.json"
+        fields:
+          - label: "Отзывы"
+            name: "reviews"
+            widget: "list"
+            fields:
+              - { label: "Автор", name: "author", widget: "string" }
+              - { label: "Источник", name: "source", widget: "select", options: ["Яндекс.Карты", "Сайт", "Другое"] }
+              - { label: "Метод", name: "method", widget: "select", options: ["laser", "sugaring", "wax"] }
+              - { label: "Текст отзыва", name: "text", widget: "text" }
+              - { label: "Дата", name: "date", widget: "date" }
+
+  - name: "partners"
+    label: "Партнёры"
+    files:
+      - name: "partners"
+        label: "Партнёрские предложения"
+        file: "src/content/partners.json"
+        fields:
+          - label: "Партнёры"
+            name: "partners"
+            widget: "list"
+            fields:
+              - { label: "URL-идентификатор (латиницей)", name: "slug", widget: "string" }
+              - { label: "Название партнёра", name: "name", widget: "string" }
+              - { label: "Заголовок предложения", name: "offerTitle", widget: "string" }
+              - { label: "Описание условий", name: "offerDescription", widget: "text" }
+              - { label: "Действует до", name: "validUntil", widget: "date", required: false }
+              - { label: "Применимо к услугам", name: "applicableServices", widget: "list", field: { label: "Услуга", name: "item", widget: "string" } }
+              - { label: "Суммируется с другими предложениями?", name: "combinesWithOtherOffers", widget: "boolean", default: false }
+              - { label: "Промокод", name: "promoCode", widget: "string", required: false }
+              - { label: "UTM-метка кампании", name: "utmCampaign", widget: "string" }
+
+  - name: "blog"
+    label: "Статьи блога"
+    files:
+      - name: "blog"
+        label: "Статьи"
+        file: "src/content/blog.json"
+        fields:
+          - label: "Статьи"
+            name: "posts"
+            widget: "list"
+            fields:
+              - { label: "URL-идентификатор (латиницей)", name: "slug", widget: "string" }
+              - { label: "Заголовок", name: "title", widget: "string" }
+              - { label: "SEO Description", name: "metaDescription", widget: "text" }
+              - { label: "Краткий ответ (в начале статьи)", name: "shortAnswer", widget: "text" }
+              - { label: "Дата публикации", name: "publishedAt", widget: "date" }
+              - { label: "Дата обновления", name: "updatedAt", widget: "date" }
+              - { label: "Автор", name: "author", widget: "string" }
+              - { label: "Текст статьи (абзацы разделяйте пустой строкой)", name: "body", widget: "text" }
+              - label: "Вопросы по теме статьи"
+                name: "faq"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Вопрос", name: "question", widget: "string" }
+                  - { label: "Ответ", name: "answer", widget: "text" }
+              - { label: "Ссылка на связанную услугу (slug)", name: "relatedServiceSlug", widget: "string", required: false }

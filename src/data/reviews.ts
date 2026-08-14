@@ -1,12 +1,12 @@
+// Отзывы клиентов живут в src/content/reviews.json — редактируются через админку (/admin).
+import reviewsData from '@/content/reviews.json';
+
 export type Review = {
   author: string;
-  source: 'Яндекс.Карты' | 'Сайт' | '[УКАЗАТЬ]';
+  source: string;
   method: 'laser' | 'sugaring' | 'wax';
   text: string;
-  date: string; // YYYY-MM-DD
+  date: string;
 };
 
-// Реальные отзывы нужно добавить сюда перед публикацией.
-// Ничего не выдумано намеренно — сейчас массив пуст, на сайте будет
-// аккуратная заглушка "Отзывы скоро появятся" вместо вымышленных примеров.
-export const reviews: Review[] = [];
+export const reviews: Review[] = reviewsData.reviews as Review[];

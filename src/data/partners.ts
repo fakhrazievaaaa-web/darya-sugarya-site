@@ -1,26 +1,17 @@
+// Партнёры живут в src/content/partners.json — редактируются через админку (/admin).
+import partnersData from '@/content/partners.json';
+
 export type Partner = {
-  slug: string; // используется в URL: /partners/[slug]/
+  slug: string;
   name: string;
   logo?: string;
   offerTitle: string;
   offerDescription: string;
-  validUntil?: string; // YYYY-MM-DD
+  validUntil?: string;
   applicableServices: string[];
   combinesWithOtherOffers: boolean;
   promoCode?: string;
-  utmCampaign: string; // используется в utm_campaign для этого партнёра
+  utmCampaign: string;
 };
 
-// Пример структуры — удалите или замените на реальных партнёров.
-// Каждый новый объект автоматически создаёт страницу /partners/[slug]/
-export const partners: Partner[] = [
-  {
-    slug: 'example-partner',
-    name: '[УКАЗАТЬ название партнёра]',
-    offerTitle: '[УКАЗАТЬ предложение для клиентов партнёра]',
-    offerDescription: '[УКАЗАТЬ условия и срок действия]',
-    applicableServices: ['[УКАЗАТЬ услуги]'],
-    combinesWithOtherOffers: false,
-    utmCampaign: 'example-partner',
-  },
-];
+export const partners: Partner[] = partnersData.partners as Partner[];

@@ -1,39 +1,39 @@
-// ЭТОТ ФАЙЛ — единственное место, где нужно менять базовые контакты студии.
-// Замените значения [УКАЗАТЬ] на реальные данные перед публикацией сайта.
+// Контактные данные и настройки студии живут в src/content/settings.json —
+// именно этот файл редактируется через админку (/admin). Здесь мы просто
+// подключаем их и добавляем вспомогательные функции, которые нужны коду.
+import settingsData from '@/content/settings.json';
 
 export const site = {
-  name: 'Дарья Шугарья',
-  legalNamePlaceholder: '[УКАЗАТЬ юридическое наименование / ИП]',
-  city: 'Москва',
-  district: 'Таганка',
-  metro: ['Таганская', 'Марксистская'],
-  domain: 'daryasugarya.ru',
+  name: settingsData.name,
+  legalNamePlaceholder: settingsData.legalNamePlaceholder,
+  city: settingsData.city,
+  district: settingsData.district,
+  metro: settingsData.metro,
+  domain: settingsData.domain,
 
-  address: '[УКАЗАТЬ точный адрес]',
-  addressComment: '[УКАЗАТЬ этаж, вход, домофон при необходимости]',
-  walkTimeFromMetro: '[УКАЗАТЬ время пешком от метро]',
+  address: settingsData.address,
+  addressComment: settingsData.addressComment,
+  walkTimeFromMetro: settingsData.walkTimeFromMetro,
 
-  phone: '[УКАЗАТЬ телефон]',
-  phoneHref: 'tel:[УКАЗАТЬ_ТЕЛЕФОН_В_ФОРМАТЕ_+7XXXXXXXXXX]',
+  phone: settingsData.phone,
+  phoneHref: settingsData.phoneHref,
 
-  workingHours: '[УКАЗАТЬ режим работы]',
+  workingHours: settingsData.workingHours,
 
   messengers: {
-    whatsapp: '[УКАЗАТЬ ссылку WhatsApp]',
-    telegram: '[УКАЗАТЬ ссылку Telegram]',
+    whatsapp: settingsData.whatsapp,
+    telegram: settingsData.telegram,
   },
 
   socials: {
-    instagram: '[УКАЗАТЬ, если используется]',
-    vk: '[УКАЗАТЬ, если используется]',
+    instagram: settingsData.instagram,
+    vk: settingsData.vk,
   },
 
-  yandexMapsUrl: '[УКАЗАТЬ ссылку на карточку Яндекс.Карт]',
-  yandexMetrikaId: '[УКАЗАТЬ ПОСЛЕ СОЗДАНИЯ]',
+  yandexMapsUrl: settingsData.yandexMapsUrl,
+  yandexMetrikaId: settingsData.yandexMetrikaId,
 
-  // Базовая ссылка YCLIENTS. К ней при необходимости добавляются UTM-параметры
-  // через функцию withUtm() ниже — отдельно менять ссылку в компонентах не нужно.
-  yclientsBaseUrl: '[УКАЗАТЬ ссылку YCLIENTS]',
+  yclientsBaseUrl: settingsData.yclientsBaseUrl,
 };
 
 type UtmParams = {

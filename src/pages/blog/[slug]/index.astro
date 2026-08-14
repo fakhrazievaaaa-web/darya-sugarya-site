@@ -38,7 +38,7 @@ const bookingUrl = withUtm(site.yclientsBaseUrl, {
       </p>
       <p><strong>{post.shortAnswer}</strong></p>
 
-      {post.body.map((paragraph) => <p>{paragraph}</p>)}
+      {post.body.split(/\n\s*\n/).map((paragraph) => <p>{paragraph}</p>)}
 
       <p><em>Информация носит общий характер — индивидуальные особенности обсуждаются на консультации с мастером.</em></p>
 
