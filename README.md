@@ -160,4 +160,4 @@ npm run build
 - Партнёрские страницы помечены `noindex`, чтобы не создавать дубли в поиске.
 - Микроразметка Schema.org подключена: BeautySalon, Service, Person, BreadcrumbList, FAQPage, Article. AggregateRating сознательно не добавлен — только после появления реальных отзывов.
 - Sitemap.xml генерируется автоматически при сборке через `@astrojs/sitemap`.
-..
+  
