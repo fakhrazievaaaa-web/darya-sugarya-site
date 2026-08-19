@@ -7,8 +7,8 @@
   "addressComment": "1 подъезд, этаж 2, кабинет 8",
   "phone": "[УКАЗАТЬ телефон]",
   "district": "Таганка",
-  "legalNamePlaceholder": "ИП Фахразиева Дарья Александровна",
-  "yclientsBaseUrl": "ссылка",
+  "legalNamePlaceholder": "[УКАЗАТЬ юридическое наименование / ИП]",
+  "yclientsBaseUrl": "https://n2253459.yclients.com",
   "whatsapp": "[УКАЗАТЬ ссылку WhatsApp]",
   "instagram": "[УКАЗАТЬ, если используется]",
   "yandexMetrikaId": "[УКАЗАТЬ ПОСЛЕ СОЗДАНИЯ]",
@@ -19,6 +19,6 @@
     "Марксистская"
   ],
   "phoneHref": "tel:[УКАЗАТЬ_ТЕЛЕФОН_В_ФОРМАТЕ_+7XXXXXXXXXX]",
-  "walkTimeFromMetro": "3 минуты",
+  "walkTimeFromMetro": "3",
   "workingHours": "10:00-22:00"
 }
